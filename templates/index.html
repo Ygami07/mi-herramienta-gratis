@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limpiador de Emails Gratis y Verificador Web Online</title>
+  <meta name="description" content="Herramienta gratis para limpiar emails, verificar si una web está online y analizar palabras clave. Ideal para productividad y trabajo automatizado.">
+  <meta name="keywords" content="limpiador de emails gratis, verificar web online, herramientas de productividad, contador de palabras html, analizador de urls">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="/">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shell {
+      width: 100%;
+      max-width: 880px;
+      padding: 24px;
+    }
+    .title {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .title h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+    }
+    .title p {
+      margin: 6px 0 0;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr;
+      gap: 18px;
+    }
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      padding: 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      color: #9ca3af;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 9px 11px;
+      margin-bottom: 12px;
+      border-radius: 9px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    }
+    button {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 4px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 12px 25px rgba(59, 130, 246, 0.45);
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 35px rgba(59, 130, 246, 0.65);
+      filter: brightness(1.05);
+    }
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.55);
+      filter: brightness(0.97);
+    }
+    .muted {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 118, 110, 0.22);
+      color: #a5f3fc;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .status {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+    .ok { color: #4ade80; }
+    .warn { color: #f97316; }
+    .error { color: #fb7185; }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      background: rgba(15, 23, 42, 0.95);
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      margin-top: 10px;
+      word-break: break-all;
+    }
+    .action-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #a5f3fc;
+      text-decoration: none;
+      border: 1px solid rgba(165, 243, 252, 0.4);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+    .action-link:hover {
+      background: rgba(165, 243, 252, 0.12);
+    }
+    .history {
+      margin-top: 18px;
+      overflow-x: auto;
+    }
+    .mt-12 {
+      margin-top: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+    th, td {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+      padding: 8px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    footer {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    .faq-item {
+      margin-bottom: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .faq-item p {
+      margin: 8px 0 4px;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="title">
+      <h1>Rastreador Web</h1>
+      <p>Pequeña herramienta automática para analizar una URL y contar una palabra clave.</p>
+    </div>
+
+    <div class="layout">
+      <div class="card">
+        <div class="badge">
+          <span>Formulario</span>
+        </div>
+        <h2>Configura tu chequeo</h2>
+        <form method="post">
+          <input type="hidden" name="accion" value="single">
+          <label for="url">URL</label>
+          <input id="url" name="url" type="text" value="{{ url }}" required>
+
+          <label for="palabra">Palabra clave</label>
+          <input id="palabra" name="palabra" type="text" value="{{ palabra_clave }}" required>
+
+          <button type="submit">Revisar página</button>
+          <p class="muted">Consejo: prueba primero con Google para ver que todo se mueve bien.</p>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="badge">
+          <span>Resultado</span>
+        </div>
+        <h2>Estado de la página</h2>
+        <p class="status">
+          {% if resultado.status_code == 200 %}
+            <span class="ok">{{ resultado.mensaje }}</span>
+          {% elif resultado.status_code %}
+            <span class="warn">{{ resultado.mensaje }}</span>
+          {% else %}
+            <span class="error">{{ resultado.mensaje }}</span>
+          {% endif %}
+        </p>
+        <p>La palabra <b>{{ palabra_clave }}</b> aparece <b>{{ resultado.conteo }}</b> vez/veces en el código HTML.</p>
+        <div class="mono">
+          <div><b>URL:</b> {{ url }}</div>
+          <div><b>Keyword:</b> "{{ palabra_clave }}"</div>
+          <div><b>Status:</b> {{ resultado.status_code if resultado.status_code is not none else "sin código" }}</div>
+        </div>
+        <a class="action-link" href="/descargar-historial">Descargar historial CSV</a>
+        <p class="muted">Tu app ya guarda las consultas automáticamente para que trabaje sola.</p>
+      </div>
+    </div>
+
+    <div class="card mt-12">
+      <div class="badge">
+        <span>Lote</span>
+      </div>
+      <h2>Analizar muchas URLs de una vez</h2>
+      <form method="post">
+        <input type="hidden" name="accion" value="lote">
+        <label for="palabra_lote">Palabra clave para todo el lote</label>
+        <input id="palabra_lote" name="palabra" type="text" value="{{ palabra_clave }}" required>
+
+        <label for="urls_lote">Pega una URL por línea</label>
+        <textarea id="urls_lote" name="urls_lote" placeholder="https://www.google.com&#10;https://www.wikipedia.org">{{ urls_texto }}</textarea>
+        <button type="submit">Revisar lote pegado</button>
+      </form>
+
+      <form method="post" class="mt-12">
+        <input type="hidden" name="accion" value="txt">
+        <label for="palabra_txt">Palabra clave para urls.txt</label>
+        <input id="palabra_txt" name="palabra" type="text" value="{{ palabra_clave }}" required>
+        <button type="submit">Revisar urls.txt</button>
+      </form>
+      <p class="muted">Si no existe `urls.txt`, la app lo crea vacío automáticamente.</p>
+
+      {% if resumen_lote %}
+        <p><b>Resumen:</b> total {{ resumen_lote.total }}, online {{ resumen_lote.ok }}, no online {{ resumen_lote.fallo }}.</p>
+      {% endif %}
+
+      {% if resultado_lote %}
+        <div class="history">
+          <table>
+            <thead>
+              <tr>
+                <th>URL</th>
+                <th>Status</th>
+                <th>Conteo</th>
+                <th>Mensaje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fila in resultado_lote %}
+                <tr>
+                  <td>{{ fila.url }}</td>
+                  <td>{{ fila.status_code }}</td>
+                  <td>{{ fila.conteo }}</td>
+                  <td>{{ fila.mensaje }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="card history">
+      <div class="badge">
+        <span>Historial</span>
+      </div>
+      <h2>Últimas 10 búsquedas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>URL</th>
+            <th>Palabra</th>
+            <th>Status</th>
+            <th>Conteo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fila in ultimos_registros %}
+            <tr>
+              <td>{{ fila.fecha_hora }}</td>
+              <td>{{ fila.url }}</td>
+              <td>{{ fila.palabra_clave }}</td>
+              <td>{{ fila.status_code }}</td>
+              <td>{{ fila.conteo }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Primer MVP — pensado para funcionar solo y, en el futuro, monetizar con publicidad sin vender nada a mano.
+    </footer>
+
+    <div class="card mt-12">
+      <div class="badge">
+        <span>FAQ</span>
+      </div>
+      <h2>Preguntas Frecuentes</h2>
+      <details class="faq-item">
+        <summary>¿Esta herramienta es gratis?</summary>
+        <p>Sí. Puedes usarla sin pagar para limpiar emails, verificar webs y analizar URLs por lote.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo verifico si una web está online?</summary>
+        <p>Escribe la URL y pulsa el botón de revisar. Verás el código de estado (por ejemplo, 200 si está online).</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Puedo analizar muchas páginas de una vez?</summary>
+        <p>Sí. Pega varias URLs (una por línea) o usa <code>urls.txt</code> para revisar todo en bloque.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Dónde se guardan los resultados?</summary>
+        <p>Los resultados se guardan en <code>historial.csv</code> para que tengas datos y seguimiento automático.</p>
+      </details>
+    </div>
+  </div>
+</body>
+</html>
