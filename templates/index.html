@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Limpiador de Emails Gratis y Verificador Web Online</title>
-  <meta name="description" content="Herramienta gratis para limpiar emails, verificar si una web está online y analizar palabras clave. Ideal para productividad y trabajo automatizado.">
-  <meta name="keywords" content="limpiador de emails gratis, verificar web online, herramientas de productividad, contador de palabras html, analizador de urls">
+  <title>Free Web Tracker & Bulk URL Auditor Online</title>
+  <meta name="description" content="Free tool for bulk URL analysis, website status checking, and keyword tracking. Perfect for SEO productivity and automation.">
+  <meta name="keywords" content="free web tracker, bulk url checker, seo audit tool, website status checker, keyword counter">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="/">
   <style>
@@ -216,34 +216,34 @@
 <body>
   <div class="shell">
     <div class="title">
-      <h1>Rastreador Web</h1>
-      <p>Pequeña herramienta automática para analizar una URL y contar una palabra clave.</p>
+      <h1>Web Tracker Pro</h1>
+      <p>Automated tool to audit URLs and track keyword density.</p>
     </div>
 
     <div class="layout">
       <div class="card">
         <div class="badge">
-          <span>Formulario</span>
+          <span>Configuration</span>
         </div>
-        <h2>Configura tu chequeo</h2>
+        <h2>Audit Settings</h2>
         <form method="post">
           <input type="hidden" name="accion" value="single">
           <label for="url">URL</label>
-          <input id="url" name="url" type="text" value="{{ url }}" required>
+          <input id="url" name="url" type="text" value="{{ url }}" placeholder="https://example.com" required>
 
-          <label for="palabra">Palabra clave</label>
-          <input id="palabra" name="palabra" type="text" value="{{ palabra_clave }}" required>
+          <label for="palabra">Target Keyword</label>
+          <input id="palabra" name="palabra" type="text" value="{{ palabra_clave }}" placeholder="Keyword to find" required>
 
-          <button type="submit">Revisar página</button>
-          <p class="muted">Consejo: prueba primero con Google para ver que todo se mueve bien.</p>
+          <button type="submit">Check Page Now</button>
+          <p class="muted">Tip: Try google.com to test if the connection is running smoothly.</p>
         </form>
       </div>
 
       <div class="card">
         <div class="badge">
-          <span>Resultado</span>
+          <span>Results</span>
         </div>
-        <h2>Estado de la página</h2>
+        <h2>Analysis Report</h2>
         <p class="status">
           {% if resultado.status_code == 200 %}
             <span class="ok">{{ resultado.mensaje }}</span>
@@ -253,42 +253,42 @@
             <span class="error">{{ resultado.mensaje }}</span>
           {% endif %}
         </p>
-        <p>La palabra <b>{{ palabra_clave }}</b> aparece <b>{{ resultado.conteo }}</b> vez/veces en el código HTML.</p>
+        <p>The keyword <b>{{ palabra_clave }}</b> was found <b>{{ resultado.conteo }}</b> time(s) in the HTML code.</p>
         <div class="mono">
           <div><b>URL:</b> {{ url }}</div>
           <div><b>Keyword:</b> "{{ palabra_clave }}"</div>
-          <div><b>Status:</b> {{ resultado.status_code if resultado.status_code is not none else "sin código" }}</div>
+          <div><b>Status:</b> {{ resultado.status_code if resultado.status_code is not none else "No status" }}</div>
         </div>
-        <a class="action-link" href="/descargar-historial">Descargar historial CSV</a>
-        <p class="muted">Tu app ya guarda las consultas automáticamente para que trabaje sola.</p>
+        <a class="action-link" href="/descargar-historial">Download CSV Report</a>
+        <p class="muted">Your audits are automatically saved for future tracking.</p>
       </div>
     </div>
 
     <div class="card mt-12">
       <div class="badge">
-        <span>Lote</span>
+        <span>Bulk Analysis</span>
       </div>
-      <h2>Analizar muchas URLs de una vez</h2>
+      <h2>Analyze multiple URLs at once</h2>
       <form method="post">
         <input type="hidden" name="accion" value="lote">
-        <label for="palabra_lote">Palabra clave para todo el lote</label>
+        <label for="palabra_lote">Target Keyword for all URLs</label>
         <input id="palabra_lote" name="palabra" type="text" value="{{ palabra_clave }}" required>
 
-        <label for="urls_lote">Pega una URL por línea</label>
+        <label for="urls_lote">Paste URLs (one per line)</label>
         <textarea id="urls_lote" name="urls_lote" placeholder="https://www.google.com&#10;https://www.wikipedia.org">{{ urls_texto }}</textarea>
-        <button type="submit">Revisar lote pegado</button>
+        <button type="submit">Scan Bulk List</button>
       </form>
 
       <form method="post" class="mt-12">
         <input type="hidden" name="accion" value="txt">
-        <label for="palabra_txt">Palabra clave para urls.txt</label>
+        <label for="palabra_txt">Target Keyword for urls.txt</label>
         <input id="palabra_txt" name="palabra" type="text" value="{{ palabra_clave }}" required>
-        <button type="submit">Revisar urls.txt</button>
+        <button type="submit">Audit urls.txt</button>
       </form>
-      <p class="muted">Si no existe `urls.txt`, la app lo crea vacío automáticamente.</p>
+      <p class="muted">If `urls.txt` doesn't exist, the app creates one automatically.</p>
 
       {% if resumen_lote %}
-        <p><b>Resumen:</b> total {{ resumen_lote.total }}, online {{ resumen_lote.ok }}, no online {{ resumen_lote.fallo }}.</p>
+        <p><b>Summary:</b> Total: {{ resumen_lote.total }}, Online: {{ resumen_lote.ok }}, Failed: {{ resumen_lote.fallo }}.</p>
       {% endif %}
 
       {% if resultado_lote %}
@@ -298,8 +298,8 @@
               <tr>
                 <th>URL</th>
                 <th>Status</th>
-                <th>Conteo</th>
-                <th>Mensaje</th>
+                <th>Count</th>
+                <th>Message</th>
               </tr>
             </thead>
             <tbody>
@@ -319,17 +319,17 @@
 
     <div class="card history">
       <div class="badge">
-        <span>Historial</span>
+        <span>History</span>
       </div>
-      <h2>Últimas 10 búsquedas</h2>
+      <h2>Last 10 Reports</h2>
       <table>
         <thead>
           <tr>
-            <th>Fecha</th>
+            <th>Date/Time</th>
             <th>URL</th>
-            <th>Palabra</th>
+            <th>Keyword</th>
             <th>Status</th>
-            <th>Conteo</th>
+            <th>Count</th>
           </tr>
         </thead>
         <tbody>
@@ -347,29 +347,29 @@
     </div>
 
     <footer>
-      Primer MVP — pensado para funcionar solo y, en el futuro, monetizar con publicidad sin vender nada a mano.
+      Public MVP — Built for automation. Monetization coming soon via ads.
     </footer>
 
     <div class="card mt-12">
       <div class="badge">
         <span>FAQ</span>
       </div>
-      <h2>Preguntas Frecuentes</h2>
+      <h2>Frequently Asked Questions</h2>
       <details class="faq-item">
-        <summary>¿Esta herramienta es gratis?</summary>
-        <p>Sí. Puedes usarla sin pagar para limpiar emails, verificar webs y analizar URLs por lote.</p>
+        <summary>Is this tool free?</summary>
+        <p>Yes. You can use it without any cost to verify websites and analyze URLs in bulk.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Cómo verifico si una web está online?</summary>
-        <p>Escribe la URL y pulsa el botón de revisar. Verás el código de estado (por ejemplo, 200 si está online).</p>
+        <summary>How do I check if a website is online?</summary>
+        <p>Enter the URL and click the check button. You will see the status code (e.g., 200 means it's online).</p>
       </details>
       <details class="faq-item">
-        <summary>¿Puedo analizar muchas páginas de una vez?</summary>
-        <p>Sí. Pega varias URLs (una por línea) o usa <code>urls.txt</code> para revisar todo en bloque.</p>
+        <summary>Can I audit multiple pages at once?</summary>
+        <p>Yes. Paste multiple URLs (one per line) or use the <code>urls.txt</code> feature for bulk scanning.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Dónde se guardan los resultados?</summary>
-        <p>Los resultados se guardan en <code>historial.csv</code> para que tengas datos y seguimiento automático.</p>
+        <summary>Where are the results stored?</summary>
+        <p>Results are saved in <code>historial.csv</code> so you can download and track your data automatically.</p>
       </details>
     </div>
   </div>
